@@ -10,18 +10,6 @@ A simple & quick way to create a type eraser for your custom Protocols.
 * tvOS 13.0+
 * macCatalyst 13.0+
 
-# Highlighted Features
-
-- Fully compliant with CommonMark
-- SVG rendering support
--  Highly Customizable and Extensible
-    - Fonts
-    - Code Highlighter Themes
-    - Tint Colors
-    - Block Directives
-    - Custom Images
--  Fully Native SwiftUI implementations
-
 # Getting started
 
 ### Custom Protocol with `@TypeErasure`
