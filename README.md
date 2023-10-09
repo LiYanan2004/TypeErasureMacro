@@ -2,15 +2,7 @@
 
 A simple & quick way to create a type eraser for your custom Protocols.
 
-# Supported Platforms
-
-* macOS 10.15+
-* iOS 13.0+
-* watchOS 6.0+
-* tvOS 13.0+
-* macCatalyst 13.0+
-
-# Getting started
+# Usage
 
 ### Custom Protocol with `@TypeErasure`
 
