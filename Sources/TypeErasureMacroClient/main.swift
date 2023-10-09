@@ -1,8 +1,28 @@
 import TypeErasureMacro
+import SwiftUI
 
-let a = 17
-let b = 25
+@TypeErasure
+protocol ContentDrawable {
+    var size: CGSize { get }
+    var backgroundColor: Color { get }
+    
+    func draw()
+}
 
-let (result, code) = #stringify(a + b)
-
-print("The value \(result) was produced by the code \"\(code)\"")
+//struct AnyContentDrawable: ContentDrawable {
+//    private var _size: CGSize
+//    private var _backgroundColor: Color
+//    private var _draw: () -> Void
+//    
+//    init(contentdrawable: ContentDrawable) {
+//        _size = contentdrawable.size
+//        _backgroundColor = contentdrawable.backgroundColor
+//        _draw = contentdrawable.draw
+//    }
+//    
+//    var size: CGSize { _size }
+//    var backgroundColor: Color { _backgroundColor }
+//    func draw() {
+//        _draw()
+//    }
+//}

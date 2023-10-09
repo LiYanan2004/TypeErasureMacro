@@ -7,7 +7,7 @@ import XCTest
 import TypeErasureMacroMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": StringifyMacro.self,
+    "stringify": TypeErasureMacro.self,
 ]
 #endif
 
@@ -16,27 +16,23 @@ final class TypeErasureMacroTests: XCTestCase {
         #if canImport(TypeErasureMacroMacros)
         assertMacroExpansion(
             """
-            #stringify(a + b)
+            @TypeErasure
+            protocol ContentDrawable {
+                var size: CGSize { get }
+                var backgroundColor: Color { get }
+                
+                func draw()
+            }
             """,
             expandedSource: """
-            (a + b, "a + b")
+            @TypeErasure
+            protocol ContentDrawable {
+                var size: CGSize { get }
+                var backgroundColor: Color { get }
+                
+                func draw()
+            }
             """,
-            macros: testMacros
-        )
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-
-    func testMacroWithStringLiteral() throws {
-        #if canImport(TypeErasureMacroMacros)
-        assertMacroExpansion(
-            #"""
-            #stringify("Hello, \(name)")
-            """#,
-            expandedSource: #"""
-            ("Hello, \(name)", #""Hello, \(name)""#)
-            """#,
             macros: testMacros
         )
         #else
