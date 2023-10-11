@@ -1,6 +1,7 @@
 import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
+import SwiftDiagnostics
 
 public struct TypeErasureMacro: PeerMacro {
     public static func expansion(
@@ -9,7 +10,17 @@ public struct TypeErasureMacro: PeerMacro {
         in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         guard let protDecl = declaration.as(ProtocolDeclSyntax.self)
-        else { return [] }
+        else {
+            let error = ExpansionError.unsupported
+            let fixit = FixIt.replace(
+                message: error,
+                oldNode: node,
+                newNode: DeclSyntax(stringLiteral: "")
+            )
+            let diagnostic = Diagnostic(node: node, message: error, fixIt: fixit)
+            context.diagnose(diagnostic)
+            return []
+        }
         
         let protocolName = protDecl.name
         let members = protDecl.memberBlock.members

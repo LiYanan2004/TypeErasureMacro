@@ -39,4 +39,29 @@ final class TypeErasureMacroTests: XCTestCase {
         throw XCTSkip("macros are only supported when running tests for the host platform")
         #endif
     }
+    
+    func testError() throws {
+        #if canImport(TypeErasureMacroMacros)
+        assertMacroExpansion(
+            """
+            @TypeErasure
+            struct Test {
+                
+            }
+            """,
+            expandedSource: """
+            @TypeErasure
+            struct Test {
+                
+            }
+            """,
+            diagnostics: [
+                DiagnosticSpec(message: "'@TypeErasure' is only available for custom Protocols", line: 1, column: 1)
+            ],
+            macros: testMacros
+        )
+        #else
+        throw XCTSkip("macros are only supported when running tests for the host platform")
+        #endif
+    }
 }
